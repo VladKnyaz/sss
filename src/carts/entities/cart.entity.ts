@@ -7,7 +7,7 @@ import {
   OneToOne,
 } from 'typeorm';
 
-@Entity()
+@Entity({name: 'carts'})
 export class Cart {
   @PrimaryGeneratedColumn()
   id: number;

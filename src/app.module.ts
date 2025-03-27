@@ -2,12 +2,14 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
 import { CartsModule } from './carts/carts.module';
 import { OrdersModule } from './orders/orders.module';
+import { UsersModule } from './users/users.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({isGlobal: true, envFilePath: '.env'}),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -15,11 +17,13 @@ import { OrdersModule } from './orders/orders.module';
       username: 'postgres',
       password: 'psql',
       database: 'suntech',
-      entities: [User],
-      synchronize: true,
+      autoLoadEntities: true,
+      synchronize: true, // dev
+      dropSchema: true // dev
     }),
     CartsModule,
     OrdersModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],

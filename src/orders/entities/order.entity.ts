@@ -9,7 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({name: 'orders'})
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,8 +17,10 @@ export class Order {
   @Column()
   name: string;
 
-  @ManyToOne(() => User, user => user.orders)
-  @JoinColumn({name: "user_id"})
+  @Column()
+  user_id: string;
+  
+  @ManyToOne(() => User)
+  @JoinColumn({name: "user_id", referencedColumnName: 'id'})
   user: User
-
 }
