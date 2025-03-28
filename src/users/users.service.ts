@@ -9,8 +9,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>){}
-    
+    private userRepository: Repository<User>,
+  ) {}
+
   async create(createUserDto: CreateUserDto) {
     return await this.userRepository.save(createUserDto);
   }
@@ -18,8 +19,8 @@ export class UsersService {
   async findAll() {
     return await this.userRepository.find({
       relations: {
-        orders: true
-      }
+        orders: true,
+      },
     });
   }
 

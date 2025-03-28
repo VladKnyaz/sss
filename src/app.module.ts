@@ -6,10 +6,11 @@ import { CartsModule } from './carts/carts.module';
 import { OrdersModule } from './orders/orders.module';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true, envFilePath: '.env'}),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -19,11 +20,12 @@ import { ConfigModule } from '@nestjs/config';
       database: 'suntech',
       autoLoadEntities: true,
       synchronize: true, // dev
-      dropSchema: true // dev
+      dropSchema: true, // dev
     }),
     CartsModule,
     OrdersModule,
-    UsersModule
+    UsersModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

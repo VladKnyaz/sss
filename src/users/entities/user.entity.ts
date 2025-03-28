@@ -1,7 +1,13 @@
 import { Order } from 'src/orders/entities/order.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 
-@Entity({name: 'users'})
+@Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,10 +21,9 @@ export class User {
   @Column()
   password: string;
 
-  @Column({default: ''})
+  @Column({ default: '' })
   address: string;
 
-  @OneToMany(() => Order, order => order.user)
+  @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
-
 }
