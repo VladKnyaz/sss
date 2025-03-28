@@ -6,6 +6,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
+import { Stock } from './stock.entity';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -24,4 +25,6 @@ export class Product {
   @Column({type: 'json'})
   attributes: string
 
+  @OneToMany(() => Stock, (stock) => stock.product, { cascade: true })
+  stocks: Stock[];
 }
