@@ -6,6 +6,7 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
+import { CartItem } from './cart-item.entity';
 
 @Entity({ name: 'carts' })
 export class Cart {
@@ -15,6 +16,9 @@ export class Cart {
   @Column()
   name: string;
 
-  // @OneToOne(type => User, user => user.carts)
-  // products
+  @OneToOne(() => User, (user) => user.carts)
+  user: User;
+
+  @OneToMany(() => CartItem, (cartItem) => cartItem.cart)
+  items: CartItem[];
 }
