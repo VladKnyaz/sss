@@ -30,5 +30,5 @@ export class User {
   orders: Order[];
 
   @OneToOne(() => Cart, (cart) => cart.user)
-  carts: Cart
+  carts: Cart;
 }

@@ -17,7 +17,9 @@ export class Stock {
   @Column()
   name: string;
 
-  @ManyToOne(() => Product, (product) => product.stocks, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Product, (product) => product.stocks, {
+    onDelete: 'CASCADE',
+  })
   product: Product;
 
   @Column({ default: 0 })
@@ -25,5 +27,4 @@ export class Stock {
 
   @Column({ default: 0 })
   reserved: number; // Сколько зарезервировано (например, в заказах)
-
 }

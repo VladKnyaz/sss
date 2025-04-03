@@ -20,11 +20,11 @@ export class Product {
   @Column({ nullable: true })
   id_in_crm: string; // Id продукта в bitrix или 1с или срм
 
-  @Column({default: ''})
+  @Column({ default: '' })
   description: string;
 
-  @Column({type: 'json'})
-  attributes: string
+  @Column({ type: 'json' })
+  attributes: string;
 
   @OneToMany(() => Stock, (stock) => stock.product)
   stocks: Stock[];
