@@ -1,3 +1,4 @@
+import { Role } from 'src/auth/role.enum';
 import { Cart } from 'src/carts/entities/cart.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import {
@@ -22,6 +23,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column({ type: 'enum', enum: Role, array: true, default: `{user}` }) // Массив ENUM в PostgreSQL
+  roles: Role[];
 
   @Column({ default: '' })
   address: string;
