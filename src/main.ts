@@ -6,13 +6,14 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { validationMessages } from './constants/validation-messages';
+import { WinstonModule } from 'nest-winston';
+import { loggerOptions } from './shared/logger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: new ConsoleLogger({
-      prefix: 'Sun',
-    }),
+    logger: WinstonModule.createLogger(loggerOptions)
   });
+  
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: (errors) => {

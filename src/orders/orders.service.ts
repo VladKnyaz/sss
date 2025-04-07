@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, Logger, LoggerService } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,9 +10,27 @@ export class OrdersService {
   constructor(
     @InjectRepository(Order)
     private orderRepository: Repository<Order>,
+    @Inject(Logger)
+    private readonly logger: LoggerService,
   ) {}
   async create(createOrderDto: CreateOrderDto) {
-    return await this.orderRepository.save(createOrderDto);
+    try {
+      return await this.orderRepository.save(createOrderDto);
+    } catch(e){
+      this.logger.error('Ошибка при создании заказа', e)
+      if (e.code === '23503') {
+        throw new HttpException(
+          'Связанный пользователь не найден. Проверьте, существует ли указанный user_id.',
+          HttpStatus.BAD_REQUEST
+        );
+      }
+    
+      throw new HttpException(
+        'Произошла ошибка при создании заказа. Попробуйте позже.',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+      
+    }
   }
 
   async findAll() {

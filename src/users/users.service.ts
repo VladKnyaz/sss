@@ -29,7 +29,7 @@ export class UsersService {
   }
 
   async findOneByName(name: string) {
-    return await this.userRepository.findOne({ where: { name: name } });
+    return await this.userRepository.findOne({ where: { name } });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
